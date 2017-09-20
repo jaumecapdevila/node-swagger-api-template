@@ -5,7 +5,7 @@ const R = require('ramda');
 /**
  * Return the properties of the given object or false otherwise
  * @param  {Object} object The target
- * @return {object|false}  Returns an array with all the properties or false otherwise
+ * @return {Object|false}  Returns the properties of the object or false otherwise
  */
 function propertiesIn(object) {
   let properties = {};

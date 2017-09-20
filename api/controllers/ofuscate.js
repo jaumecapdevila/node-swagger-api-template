@@ -2,31 +2,37 @@
 
 const apiConfig = require('../config/config');
 const propertiesIn = require('../helpers/helpers').propertiesIn;
-const ServiceCommand = require('../../src/ofuscator/domain/services/ofuscate/ofuscateServiceCommand');
-const ServiceCommandHandler = require('../../src/ofuscator/domain/services/ofuscate/ofuscateServiceCommandHandler');
+const CreateOfuscationCommand = require('../../src/ofuscator/domain/services/create/createOfuscationCommand');
+const CreateOfuscationCommandHandler = require('../../src/ofuscator/domain/services/create/createOfuscationCommandHandler');
 
 function ofuscateAction(req, res) {
   const API_METHOD = 'ofuscate';
-  const HTTP_OK_CODE = 200;
+  const HTTP_RESOURCE_CREATED = 201;
   const INVALID_REQUEST_HTTP_CODE = 400;
-  const oldURL = req.swagger.params.translation.value.oldURL || '';
-  const serviceCommand = new ServiceCommand(oldURL);
-  ServiceCommandHandler.execute(serviceCommand)
+  const url = req.swagger.params.ofuscation.value.url || '';
+  const command = CreateOfuscationCommand(url);
+  CreateOfuscationCommandHandler.execute(command)
     .then((data) => {
-      res.status(HTTP_OK_CODE);
+      res.status(HTTP_RESOURCE_CREATED);
       res.json({
-        'apiVersion': apiConfig.version,
-        'method': API_METHOD,
-        'params': propertiesIn(serviceCommand),
+        apiVersion: apiConfig.version,
+        method: API_METHOD,
+        params: {
+          url: command.url
+        },
+        statusCode: HTTP_RESOURCE_CREATED,
         data
       });
     })
     .catch((errors) => {
       res.status(INVALID_REQUEST_HTTP_CODE);
       res.json({
-        'apiVersion': apiConfig.version,
-        'method': API_METHOD,
-        'params': propertiesIn(serviceCommand),
+        apiVersion: apiConfig.version,
+        method: API_METHOD,
+        params: {
+          url: command.url
+        },
+        statusCode: INVALID_REQUEST_HTTP_CODE,
         errors
       });
     });

@@ -21,6 +21,6 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "swagger project test"
+    "swagger:edit": "swagger_swagger_fileName=api/controllers/swagger/swagger.yaml swagger project edit"
   }
 }
