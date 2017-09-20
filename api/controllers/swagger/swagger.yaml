@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   version: "0.0.1"
-  title: url ofuscator api
+  title: API template
 host: localhost:8080
 basePath: /v1
 schemes:
@@ -12,33 +12,19 @@ consumes:
 produces:
   - application/json
 paths:
-  /:
-    x-swagger-router-controller: home
-    get:
-      description: url ofuscator api
-      operationId: homeAction
-      responses:
-        "200":
-          description: Success
-          schema:
-            $ref: "#/definitions/SuccessResponse"
-        default:
-          description: Error
-          schema:
-            $ref: "#/definitions/ErrorResponse"
-  /ofuscations:
-    x-swagger-router-controller: ofuscate
+  /models:
+    x-swagger-router-controller: create
     post:
       tags:
-        - Ofuscations
+        - BaseModel
       description: Ofuscates the given url
       parameters:
-        - name: ofuscation
+        - name: model
           in: body
           required: true
           schema:
-            $ref: '#/definitions/CreateOfuscation'
-      operationId: ofuscateAction
+            $ref: '#/definitions/BaseModel'
+      operationId: createAction
       responses:
         "201":
           description: Success
@@ -52,15 +38,19 @@ paths:
     x-swagger-pipe: swagger_raw
 
 definitions:
-  CreateOfuscation:
+  BaseModel:
     type: object
-    description: Ofuscation object
+    description: BaseModel object
     properties:
-      url:
+      propertyA:
         type: string 
-        description: The url to ofuscate
+        description: The first property of the object
+      propertyB:
+        type: number 
+        description: The second property of the object
     required:
-      - url
+      - propertyA
+      - propertyB
   SuccessResponse:
     required:
       - apiVersion

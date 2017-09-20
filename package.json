@@ -1,26 +1,38 @@
 {
-  "name": "backend-api-url-ofuscator",
+  "name": "node-swagger-api-template",
   "version": "0.0.1",
-  "private": true,
-  "description": "URL ofuscator api",
-  "keywords": ["node", "api", "swagger"],
-  "author": "Jaume Capdevila <contact@jaumecapdevila.net>",
-  "license": "",
+  "private": false,
+  "description": "A basic template to bootstrap the development of an API using Node and Swagger",
+  "keywords": [
+    "node",
+    "api",
+    "swagger"
+  ],
+  "author": {
+    "name" : "Jaume Capdevila",
+    "email" : "contact@jaumecapdevila.net"
+  },
+  "license": "MIT License",
   "main": "server.js",
   "dependencies": {
     "express": "^4.12.3",
     "swagger-express-mw": "^0.1.0",
     "mongoose": "^4.10.8",
-    "nanoid": "^0.2.1",
     "ramda": "^0.24.1",
     "sprintf-js": "^1.1.1"
   },
   "devDependencies": {
+    "eslint": "^4.7.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.3.0",
     "should": "^7.1.0",
     "supertest": "^1.0.0"
   },
   "scripts": {
     "start": "node server.js",
+    "test": "swagger_swagger_fileName=api/controllers/swagger/swagger.yaml swagger project test",
     "swagger:edit": "swagger_swagger_fileName=api/controllers/swagger/swagger.yaml swagger project edit"
   }
 }

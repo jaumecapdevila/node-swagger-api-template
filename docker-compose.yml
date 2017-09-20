@@ -10,11 +10,11 @@ services:
       - ./data/db:/data/db
     ports:
         - 27017:27017
-    command: mongod --smallfiles --logpath /dev/null
+    command: mongod --smallfiles --logpath=/dev/null # --quiet
     networks:  
       default:
         aliases:
-          - "backend_api_url_ofuscator.node"
+          - "node_swagger_api.node"
 networks:
   default:
     driver: bridge
