@@ -1,0 +1,26 @@
+{
+  "name": "backend-api-url-ofuscator",
+  "version": "0.0.1",
+  "private": true,
+  "description": "URL ofuscator api",
+  "keywords": ["node", "api", "swagger"],
+  "author": "Jaume Capdevila <contact@jaumecapdevila.net>",
+  "license": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.12.3",
+    "swagger-express-mw": "^0.1.0",
+    "mongoose": "^4.10.8",
+    "nanoid": "^0.2.1",
+    "ramda": "^0.24.1",
+    "sprintf-js": "^1.1.1"
+  },
+  "devDependencies": {
+    "should": "^7.1.0",
+    "supertest": "^1.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "swagger project test"
+  }
+}

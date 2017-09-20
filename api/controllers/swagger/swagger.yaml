@@ -1,0 +1,114 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: URL ofuscator API
+host: localhost:8080
+basePath: /v1
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /:
+    x-swagger-router-controller: home
+    get:
+      description: URL ofuscator API home
+      operationId: homeAction
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /ofuscations:
+    x-swagger-router-controller: ofuscate
+    post:
+      description: Ofuscates the given URL
+      operationId: ofuscateAction
+      parameters:
+        - url
+      responses:
+        "201":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /docs:
+    x-swagger-pipe: swagger_raw
+
+definitions:
+  Ofuscation:
+    type: object
+    description: Ofuscation object
+    properties:
+      url:
+        type: string 
+        description: The url to ofuscate
+      uniqueId:
+        type: string
+        description: The generated unique id for the url
+    required:
+      - url
+      - uniqueId
+  SuccessResponse:
+    required:
+      - apiVersion
+      - method
+      - params
+      - statusCode
+      - data
+    type: object
+    properties:
+      apiVersion:
+        type: string
+        description: The current version of the API
+      method:
+        type: string
+        description: The executed method
+      params:
+        type: object
+        description: An object with all the params used to execute the method
+      statusCode:
+        type: number
+        description: The response HTTP status code
+      data:
+        type: array
+        description: An array with all the data returned by the server
+        items:
+          type: object
+
+  ErrorResponse:
+    required:
+      - apiVersion
+      - method
+      - params
+      - statusCode
+      - errors
+    type: object
+    properties:
+      apiVersion:
+        type: string
+        description: The current version of the API
+      method:
+        type: string
+        description: The executed method
+      params:
+        type: object
+        description: An array with all the params used to execute the method
+      statusCode:
+        type: number
+        description: The response HTTP status code
+      errors:
+        type: array
+        description: An array with all the errors
+        items:
+          type: object
