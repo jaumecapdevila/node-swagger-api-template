@@ -1,14 +1,16 @@
 const should = require('should');
 const request = require('supertest');
 const server = require('../../../server');
+const config = require('../../../api/config/config');
 
+console.log(config.prefix);
 // Remember to start the docker environment before running the tests
 describe('controllers', () => {
   describe('create', () => {
     describe('POST /models', () => {
       it('should return a 201 resource created', (done) => {
         request(server)
-          .post('/v1/models')
+          .post(`${config.prefix}/models`)
           .send({ propertyA: 'test', propertyB: 1 })
           .set('Accept', 'application/json')
           .expect('Content-Type', /json/)
@@ -22,7 +24,7 @@ describe('controllers', () => {
     });
     it('should return a 400 invalid request', (done) => {
       request(server)
-        .post('/v1/models')
+        .post(`${config.prefix}/models`)
         .send({ propertyA: 1, propertyB: 'test' })
         .set('Accept', 'application/json')
         .expect('Content-Type', /json/)
