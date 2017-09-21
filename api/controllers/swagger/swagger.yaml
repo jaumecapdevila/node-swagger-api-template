@@ -13,7 +13,7 @@ produces:
   - application/json
 paths:
   /models:
-    x-swagger-router-controller: createController
+    x-swagger-router-controller: crudController
     post:
       tags:
         - BaseModel
@@ -24,7 +24,7 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/BaseModel'
-      operationId: createAction
+      operationId: postOneAction
       responses:
         "201":
           description: Success
@@ -35,7 +35,7 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
   /models/{uuid}:
-    x-swagger-router-controller: getOneController
+    x-swagger-router-controller: crudController
     get:
       tags:
         - BaseModel
@@ -46,6 +46,30 @@ paths:
           in: path
           required: true
       operationId: getOneAction
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    put:
+      tags:
+        - BaseModel
+      description: Updates a model with the given properties
+      parameters:
+        - name: uuid
+          type: string
+          in: path
+          required: true
+        - name: model
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/BaseModel'
+      operationId: putOneAction
       responses:
         "200":
           description: Success
