@@ -4,7 +4,7 @@ const uuidv4 = require('uuid/v4');
 function CreateCommandHandler() {}
 
 CreateCommandHandler.execute = function execute(command) {
-  const INVALID_REQUEST_HTTP_CODE = 404;
+  const INVALID_REQUEST_HTTP_CODE = 400;
   const INTERNAL_SERVER_ERROR_HTTP_CODE = 500;
   let { uuid } = command;
   const { propertyA, propertyB } = command;
