@@ -4,6 +4,8 @@ const uuidv4 = require('uuid/v4');
 function CreateCommandHandler() {}
 
 CreateCommandHandler.execute = function execute(command) {
+  const INVALID_REQUEST_HTTP_CODE = 404;
+  const INTERNAL_SERVER_ERROR_HTTP_CODE = 500;
   const { propertyA, propertyB } = command;
   const uuid = uuidv4();
   return new Promise((resolve, reject) => {
@@ -18,11 +20,17 @@ CreateCommandHandler.execute = function execute(command) {
           resolve({});
           return;
         }
-        reject(error.errors);
+        reject({
+          statusCode: INVALID_REQUEST_HTTP_CODE,
+          errors: error.errors,
+        });
       });
     } catch (error) {
       reject({
-        message: 'An unexpected error has ocurred, please try it again later.',
+        statusCode: INTERNAL_SERVER_ERROR_HTTP_CODE,
+        errors: {
+          message: 'An unexpected error has ocurred, please try it again later.',
+        },
       });
     }
   });

@@ -13,7 +13,7 @@ produces:
   - application/json
 paths:
   /models:
-    x-swagger-router-controller: create
+    x-swagger-router-controller: createController
     post:
       tags:
         - BaseModel
@@ -34,6 +34,27 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /models/{uuid}:
+    x-swagger-router-controller: getOneController
+    get:
+      tags:
+        - BaseModel
+      description: Retrieve a model by the given uuid
+      parameters:
+        - name: uuid
+          type: string
+          in: path
+          required: true
+      operationId: getOneAction
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /docs:
     x-swagger-pipe: swagger_raw
 
@@ -42,6 +63,9 @@ definitions:
     type: object
     description: BaseModel object
     properties:
+      uuid:
+        type: string 
+        description: The model uuid
       propertyA:
         type: string 
         description: The first property of the object

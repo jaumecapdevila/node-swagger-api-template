@@ -5,7 +5,6 @@ const CreateCommandHandler = require('../../src/context/domain/services/create/c
 function createAction(req, res) {
   const API_METHOD = 'create';
   const HTTP_RESOURCE_CREATED = 201;
-  const INVALID_REQUEST_HTTP_CODE = 400;
   const propertyA = req.swagger.params.model.value.propertyA || '';
   const propertyB = req.swagger.params.model.value.propertyB || '';
   const command = CreateCommand(propertyA, propertyB);
@@ -23,8 +22,9 @@ function createAction(req, res) {
         data,
       });
     })
-    .catch((errors) => {
-      res.status(INVALID_REQUEST_HTTP_CODE);
+    .catch((errorResponse) => {
+      const { statusCode, errors } = errorResponse;
+      res.status(statusCode);
       res.json({
         apiVersion: apiConfig.version,
         method: API_METHOD,
@@ -32,7 +32,7 @@ function createAction(req, res) {
           propertyA,
           propertyB,
         },
-        statusCode: INVALID_REQUEST_HTTP_CODE,
+        statusCode,
         errors,
       });
     });
