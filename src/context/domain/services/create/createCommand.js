@@ -1,5 +1,6 @@
-function CreateCommand(propertyA, propertyB) {
+function CreateCommand(uuid, propertyA, propertyB) {
   return {
+    uuid,
     propertyA,
     propertyB,
   };

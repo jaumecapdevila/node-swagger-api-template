@@ -6,8 +6,11 @@ function CreateCommandHandler() {}
 CreateCommandHandler.execute = function execute(command) {
   const INVALID_REQUEST_HTTP_CODE = 404;
   const INTERNAL_SERVER_ERROR_HTTP_CODE = 500;
+  let { uuid } = command;
   const { propertyA, propertyB } = command;
-  const uuid = uuidv4();
+  if (uuid == null) {
+    uuid = uuidv4();
+  }
   return new Promise((resolve, reject) => {
     try {
       const model = new BaseModel({

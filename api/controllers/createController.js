@@ -5,9 +5,10 @@ const CreateCommandHandler = require('../../src/context/domain/services/create/c
 function createAction(req, res) {
   const API_METHOD = 'create';
   const HTTP_RESOURCE_CREATED = 201;
+  const uuid = req.swagger.params.model.value.uuid || null;
   const propertyA = req.swagger.params.model.value.propertyA || '';
   const propertyB = req.swagger.params.model.value.propertyB || '';
-  const command = CreateCommand(propertyA, propertyB);
+  const command = CreateCommand(uuid, propertyA, propertyB);
   CreateCommandHandler.execute(command)
     .then((data) => {
       res.status(HTTP_RESOURCE_CREATED);
