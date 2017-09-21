@@ -16,10 +16,11 @@
   "main": "server.js",
   "dependencies": {
     "express": "^4.12.3",
-    "swagger-express-mw": "^0.1.0",
     "mongoose": "^4.10.8",
     "ramda": "^0.24.1",
-    "sprintf-js": "^1.1.1"
+    "sprintf-js": "^1.1.1",
+    "swagger-express-mw": "^0.1.0",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "chai": "^3.0.0",
