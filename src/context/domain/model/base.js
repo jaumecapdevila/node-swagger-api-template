@@ -7,10 +7,10 @@ const BaseSchema = new Schema({
     type: String,
     required: true,
     validate: {
-      validator(value) {
-        return /\d{8}-\d{4}-\d{4}-\d{4}-\d{12}/.test(value);
+      validator(v) {
+        return /[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}/.test(v);
       },
-      message: '{value} is not a valid uuid!',
+      message: '{VALUE} is not a valid uuid!',
     },
   },
   propertyA: {
