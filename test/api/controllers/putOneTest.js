@@ -20,7 +20,7 @@ describe('PUT /models/{uuid}', () => {
         done();
       });
   });
-  it('should return a 204 resource updated', (done) => {
+  it('should return a 204', (done) => {
     request(server)
       .put(`${config.prefix}/models/${generatedUuid}`)
       .send({ propertyA: 'new_test', propertyB: 2 })

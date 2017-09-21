@@ -71,7 +71,26 @@ paths:
             $ref: '#/definitions/BaseModel'
       operationId: putOneAction
       responses:
-        "200":
+        "204":
+          description: Success
+          schema:
+            $ref: "#/definitions/SuccessResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete:
+      tags:
+        - BaseModel
+      description: Deletes a model by the given uuid
+      parameters:
+        - name: uuid
+          type: string
+          in: path
+          required: true
+      operationId: deleteOneAction
+      responses:
+        "204":
           description: Success
           schema:
             $ref: "#/definitions/SuccessResponse"

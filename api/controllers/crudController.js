@@ -1,10 +1,12 @@
 const apiConfig = require('../config/config');
-const CreateCommand = require('../../src/context/domain/services/create/createCommand');
-const CreateCommandHandler = require('../../src/context/domain/services/create/createCommandHandler');
-const GetOneQuery = require('../../src/context/domain/services/getOne/getOneQuery');
-const GetOneQueryHandler = require('../../src/context/domain/services/getOne/getOneQueryHandler');
-const UpdateCommand = require('../../src/context/domain/services/update/updateCommand');
-const UpdateCommandHandler = require('../../src/context/domain/services/update/updateCommandHandler');
+const PostOneCommand = require('../../src/context/domain/services/create/postOneCommand');
+const PostOneCommandHandler = require('../../src/context/domain/services/create/postOneCommandHandler');
+const GetOneQuery = require('../../src/context/domain/services/get/getOneQuery');
+const GetOneQueryHandler = require('../../src/context/domain/services/get/getOneQueryHandler');
+const PutOneCommand = require('../../src/context/domain/services/update/putOneCommand');
+const PutOneCommandHandler = require('../../src/context/domain/services/update/putOneCommandHandler');
+const DeleteOneCommand = require('../../src/context/domain/services/delete/deleteOneCommand');
+const DeleteOneCommandHandler = require('../../src/context/domain/services/delete/deleteOneCommandHandler');
 
 function postOneAction(req, res) {
   const API_METHOD = 'create';
@@ -12,8 +14,8 @@ function postOneAction(req, res) {
   const uuid = req.swagger.params.model.value.uuid || null;
   const propertyA = req.swagger.params.model.value.propertyA || '';
   const propertyB = req.swagger.params.model.value.propertyB || '';
-  const command = CreateCommand(uuid, propertyA, propertyB);
-  CreateCommandHandler.execute(command)
+  const command = PostOneCommand(uuid, propertyA, propertyB);
+  PostOneCommandHandler.execute(command)
     .then((data) => {
       res.status(HTTP_RESOURCE_CREATED);
       res.json({
@@ -83,8 +85,8 @@ function putOneAction(req, res) {
   const uuid = req.swagger.params.uuid.value || '';
   const propertyA = req.swagger.params.model.value.propertyA || '';
   const propertyB = req.swagger.params.model.value.propertyB || '';
-  const command = UpdateCommand(uuid, propertyA, propertyB);
-  UpdateCommandHandler.execute(command)
+  const command = PutOneCommand(uuid, propertyA, propertyB);
+  PutOneCommandHandler.execute(command)
     .then((data) => {
       res.status(HTTP_NO_CONTENT_CODE);
       res.json({
@@ -116,8 +118,42 @@ function putOneAction(req, res) {
     });
 }
 
+function deleteOneAction(req, res) {
+  const API_METHOD = 'delete';
+  const HTTP_NO_CONTENT_CODE = 204;
+  const uuid = req.swagger.params.uuid.value || '';
+  const command = DeleteOneCommand(uuid);
+  DeleteOneCommandHandler.execute(command)
+    .then((data) => {
+      res.status(HTTP_NO_CONTENT_CODE);
+      res.json({
+        apiVersion: apiConfig.version,
+        method: API_METHOD,
+        params: {
+          uuid,
+        },
+        statusCode: HTTP_NO_CONTENT_CODE,
+        data,
+      });
+    })
+    .catch((errorResponse) => {
+      const { statusCode, errors } = errorResponse;
+      res.status(statusCode);
+      res.json({
+        apiVersion: apiConfig.version,
+        method: API_METHOD,
+        params: {
+          uuid,
+        },
+        statusCode,
+        errors,
+      });
+    });
+}
+
 module.exports = {
   postOneAction,
   getOneAction,
   putOneAction,
+  deleteOneAction,
 };
