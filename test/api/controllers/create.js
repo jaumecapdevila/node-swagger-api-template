@@ -3,7 +3,6 @@ const request = require('supertest');
 const server = require('../../../server');
 const config = require('../../../api/config/config');
 
-console.log(config.prefix);
 // Remember to start the docker environment before running the tests
 describe('controllers', () => {
   describe('create', () => {
