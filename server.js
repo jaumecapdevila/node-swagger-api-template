@@ -8,9 +8,9 @@ const apiConfig = require('./api/config/config');
 module.exports = app;
 
 const swaggerConfig = {
-  appRoot: __dirname,
   swaggerFile: `${__dirname}/api/controllers/swagger/swagger.yaml`,
   configDir: `${__dirname}/api/config/swagger`,
+  appRoot: __dirname,
 };
 
 // Establish the connection with the database

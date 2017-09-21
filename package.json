@@ -9,8 +9,8 @@
     "swagger"
   ],
   "author": {
-    "name" : "Jaume Capdevila",
-    "email" : "contact@jaumecapdevila.net"
+    "name": "Jaume Capdevila",
+    "email": "contact@jaumecapdevila.net"
   },
   "license": "MIT License",
   "main": "server.js",
@@ -22,17 +22,22 @@
     "sprintf-js": "^1.1.1"
   },
   "devDependencies": {
+    "chai": "^3.0.0",
+    "dotenv": "^1.2.0",
     "eslint": "^4.7.1",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.3.0",
+    "mocha": "^2.2.5",
+    "request": "^2.58.0",
     "should": "^7.1.0",
-    "supertest": "^1.0.0"
+    "supertest": "^1.0.0",
+    "z-schema": "^3.12.0"
   },
   "scripts": {
     "start": "node server.js",
-    "test": "swagger_swagger_fileName=api/controllers/swagger/swagger.yaml swagger project test",
+    "test": "mocha ./test/api/controllers",
     "swagger:edit": "swagger_swagger_fileName=api/controllers/swagger/swagger.yaml swagger project edit"
   }
 }
