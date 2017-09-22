@@ -41,7 +41,7 @@
     "start": "node server.js",
     "test": "mocha ./test/api/controllers",
     "swagger:edit": "swagger_swagger_fileName=api/controllers/swagger/swagger.yaml swagger project edit",
-    "precommit": "npm test",
+    "precommit": "eslint",
     "prepush": "npm test"
   }
 }
